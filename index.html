@@ -4,181 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steel Club ID — Официальный сайт</title>
+    <!-- Подключаем официальную библиотеку авторизации Google -->
+    <script src="https://google.com" async defer></script>
     <style>
-        /* Общие брутальные стили в стиле дизельпанк / HOI4 */
-        body {
-            background-color: #141516;
-            color: #f0eedb;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+        body { background-color: #141516; color: #f0eedb; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        .navbar { background-color: #1a1b1c; border-bottom: 2px solid #2d2e30; display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; position: sticky; top: 0; z-index: 100; }
+        .nav-logo { font-size: 20px; font-weight: bold; color: #ffffff; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: #8a8b8c; text-decoration: none; font-size: 14px; font-weight: bold; transition: color 0.2s; }
+        .nav-links a:hover { color: #ffffff; }
+        .nav-auth-btn { background-color: #5c4033; border: 1px solid #3d2a21; color: #ffffff; padding: 8px 20px; font-size: 14px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: background-color 0.2s; }
+        .nav-auth-btn:hover { background-color: #7a5645; }
+        .hero { padding: 80px 40px; text-align: center; background: linear-gradient(180deg, #1a1b1c 0%, #141516 100%); border-bottom: 1px solid #2d2e30; }
+        .hero h1 { font-size: 48px; font-weight: 800; color: #ffffff; margin: 0 0 15px 0; letter-spacing: 1px; }
+        .hero p { font-size: 18px; color: #8a8b8c; max-width: 600px; margin: 0 auto 30px auto; line-height: 1.6; }
+        
+        /* Контейнер для всплывающего окна входа */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background-color: #1a1b1c; padding: 40px; border-radius: 6px; border: 1px solid #4a4b4c; text-align: center; width: 320px; }
+        .modal-content h2 { margin-top: 0; color: #ffffff; }
+        .close-btn { background: none; border: none; color: #8a8b8c; cursor: pointer; float: right; font-size: 20px; margin-top: -30px; margin-right: -20px; }
+        
+        /* Блок официальной кнопки Google */
+        #google_btn_container { display: flex; justify-content: center; margin-top: 25px; }
 
-        /* 1. Верхняя навигационная панель (Navbar) */
-        .navbar {
-            background-color: #1a1b1c;
-            border-bottom: 2px solid #2d2e30;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 40px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-logo {
-            font-size: 20px;
-            font-weight: bold;
-            color: #ffffff;
-            letter-spacing: 2px;
-        }
-
-        .nav-links {
-			display: flex;
-			gap: 30px;
-        }
-
-        .nav-links a {
-            color: #8a8b8c;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: bold;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: #ffffff;
-        }
-
-        /* Кнопка "Войти" в правом верхнем углу */
-        .nav-auth-btn {
-            background-color: #5c4033; /* Твой коричневый игровой цвет */
-            border: 1px solid #3d2a21;
-            color: #ffffff;
-            padding: 8px 20px;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .nav-auth-btn:hover {
-            background-color: #7a5645;
-        }
-
-        /* 2. Главный приветственный блок (Hero Section) */
-        .hero {
-            padding: 80px 40px;
-            text-align: center;
-            background: linear-gradient(180deg, #1a1b1c 0%, #141516 100%);
-            border-bottom: 1px solid #2d2e30;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 800;
-            color: #ffffff;
-            margin: 0 0 15px 0;
-            letter-spacing: 1px;
-        }
-
-        .hero p {
-            font-size: 18px;
-            color: #8a8b8c;
-            max-width: 600px;
-            margin: 0 auto 30px auto;
-            line-height: 1.6;
-        }
-
-        /* Кнопка действия по центру */
-        .hero-btn {
-            background-color: #ffffff;
-            color: #1a1b1c;
-            border: none;
-            padding: 14px 35px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: background-color 0.2s, transform 0.2s;
-        }
-
-        .hero-btn:hover {
-            background-color: #e5e5e5;
-            transform: translateY(-2px);
-        }
-
-        /* 3. Блок новостей и контента (News Section) */
-        .content-section {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-            flex-grow: 1;
-        }
-
-        .section-title {
-            font-size: 22px;
-            color: #ffffff;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            border-left: 4px solid #5c4033;
-            padding-left: 12px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background-color: #1a1b1c;
-            border: 1px solid #2d2e30;
-            border-radius: 6px;
-            padding: 25px;
-            transition: border-color 0.2s, transform 0.2s;
-        }
-
-        .card:hover {
-			border-color: #4a4b4c;
-            transform: translateY(-3px);
-        }
-
-        .card h3 {
-            margin: 0 0 10px 0;
-            color: #ffffff;
-            font-size: 18px;
-        }
-
-        .card p {
-            color: #8a8b8c;
-            font-size: 14px;
-            line-height: 1.5;
-            margin: 0;
-        }
-
-        /* 4. Подвал сайта (Footer) */
-        footer {
-            background-color: #101112;
-            border-top: 1px solid #2d2e30;
-            padding: 20px 40px;
-            text-align: center;
-            font-size: 12px;
-            color: #4a4b4c;
-            margin-top: 40px;
-        }
+        .content-section { max-width: 1200px; margin: 40px auto; padding: 0 20px; flex-grow: 1; }
+        .section-title { font-size: 22px; color: #ffffff; margin-bottom: 25px; letter-spacing: 1px; text-transform: uppercase; border-left: 4px solid #5c4033; padding-left: 12px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .card { background-color: #1a1b1c; border: 1px solid #2d2e30; border-radius: 6px; padding: 25px; transition: border-color 0.2s, transform 0.2s; }
+        .card:hover { border-color: #4a4b4c; transform: translateY(-3px); }
+        .card h3 { margin: 0 0 10px 0; color: #ffffff; font-size: 18px; }
+        .card p { color: #8a8b8c; font-size: 14px; line-height: 1.5; margin: 0; }
+        footer { background-color: #101112; border-top: 1px solid #2d2e30; padding: 20px 40px; text-align: center; font-size: 12px; color: #4a4b4c; margin-top: 40px; }
     </style>
 </head>
 <body>
 
-    <!-- ВЕРХНЯЯ ПАНЕЛЬ НАВИГАЦИИ -->
     <nav class="navbar">
         <div class="nav-logo">STEEL CLUB ID</div>
         <div class="nav-links">
@@ -187,18 +48,43 @@
             <a href="#">СООБЩЕСТВО</a>
             <a href="#">ПОДДЕРЖКА</a>
         </div>
-        <!-- Кнопка "Войти" в правом верхнем углу -->
-        <button class="nav-auth-btn" onclick="openLogin()">ВОЙТИ</button>
+        <button class="nav-auth-btn" onclick="toggleModal(true)">ВОЙТИ</button>
     </nav>
 
-    <!-- ГЛАВНЫЙ ПРИВЕТСТВЕННЫЙ БЛОК -->
     <header class="hero">
         <h1>ДОБРО ПОЖАЛОВАТЬ</h1>
-        <p>Добро пожаловать в единую систему аккаунтов игрового вселенной. Синхронизируйте свои профили, общайтесь с друзьями и ведите учет своих побед.</p>
-        <button class="hero-btn" onclick="openLogin()">СОЗДАТЬ АККАУНТ</button>
+        <p>Добро пожаловать в единую систему аккаунтов игровой вселенной. Синхронизируйте свои профили, общайтесь с друзьями и ведите учет своих побед.</p>
+        <button class="hero-btn" onclick="toggleModal(true)">СОЗДАТЬ АККАУНТ</button>
     </header>
 
-    <!-- БЛОК СТИЛЬНЫХ ИГРОВЫХ КАРТОЧЕК -->
+    <!-- ВСПЛЫВАЮЩЕЕ ОКНО АВТОРИЗАЦИИ -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="toggleModal(false)">×</button>
+            <h2>СТАРТ СИСТЕМЫ</h2>
+            <p style="color: #8a8b8c; font-size: 14px;">Используйте ваш Google аккаунт для синхронизации с лаунчером</p>
+            
+            <!-- Сюда скрипт Google автоматически вставит красивую кнопку -->
+            <div id="google_btn_container">
+                <div id="g_id_onload"
+                     data-client_id="://googleusercontent.com"
+                     data-context="signin"
+                     data-ux_mode="popup"
+                     data-callback="handleCredentialResponse"
+                     data-auto_prompt="false">
+                </div>
+                <div class="g_id_signin"
+                     data-type="standard"
+                     data-shape="rectangular"
+                     data-theme="outline"
+                     data-text="signin_with"
+                     data-size="large"
+                     data-logo_alignment="left">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <main class="content-section">
         <h2 class="section-title">Последние события</h2>
         <div class="grid">
@@ -217,15 +103,31 @@
         </div>
     </main>
 
-    <!-- ПОДВАЛ САЙТА -->
     <footer>
-        &copy; 2026 Steel Club ID. Все права защищены. Все торговые марки принадлежат их законным владельцам.
+        &copy; 2026 Steel Club ID. Все права защищены.
     </footer>
 
     <script>
-        // Функция-заглушка для кнопок входа
-        function openLogin() {
-            alert("Страница авторизации Steel Club ID находится в режиме интеграции!");
+        function toggleModal(show) {
+            document.getElementById('loginModal').style.display = show ? 'flex' : 'none';
+        }
+
+        // Эта функция сработает, когда игрок успешно выберет свой Google аккаунт
+        function handleCredentialResponse(response) {
+            console.log("Получен зашифрованный токен от Google: " + response.credential);
+            
+            // Отправляем токен на наш будущий бэкенд для записи в базу данных
+            fetch('/api/auth/google', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: json.stringify({ id_token: response.credential })
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert("Успешный вход! Ваш токен для лаунчера: " + data.launcher_token);
+                toggleModal(false);
+            })
+            .catch(err => console.error("Ошибка авторизации: ", err));
         }
     </script>
 </body>
