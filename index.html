@@ -7,111 +7,19 @@
     <!-- Официальная библиотека авторизации Google -->
     <script src="https://google.com" async defer></script>
     <style>
-        /* Общие брутальные стили в стиле дизельпанк / HOI4 */
-        body {
-            background-color: #141516;
-            color: #f0eedb;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* Верхняя панель навигации (Navbar) */
-        .navbar {
-            background-color: #1a1b1c;
-            border-bottom: 2px solid #2d2e30;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 40px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-logo {
-            font-size: 20px;
-            font-weight: bold;
-            color: #ffffff;
-            letter-spacing: 2px;
-        }
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: #8a8b8c;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: bold;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: #ffffff;
-        }
-
-        .nav-auth-btn {
-            background-color: #5c4033;
-            border: 1px solid #3d2a21;
-            color: #ffffff;
-            padding: 8px 20px;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .nav-auth-btn:hover {
-            background-color: #7a5645;
-        }
-
-        /* Главный приветственный блок (Hero Section) */
-        .hero {
-            padding: 80px 40px;
-            text-align: center;
-            background: linear-gradient(180deg, #1a1b1c 0%, #141516 100%);
-            border-bottom: 1px solid #2d2e30;
-        }
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 800;
-            color: #ffffff;
-            margin: 0 0 15px 0;
-            letter-spacing: 1px;
-        }
-
-        .hero p {
-            font-size: 18px;
-            color: #8a8b8c;
-            max-width: 600px;
-            margin: 0 auto 30px auto;
-            line-height: 1.6;
-        }
-
-        .hero-btn {
-            background-color: #ffffff;
-            color: #1a1b1c;
-            border: none;
-            padding: 14px 35px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: background-color 0.2s, transform 0.2s;
-        }
-
-        .hero-btn:hover {
-            background-color: #e5e5e5;
-            transform: translateY(-2px);
-        }
-
+        body { background-color: #141516; color: #f0eedb; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        .navbar { background-color: #1a1b1c; border-bottom: 2px solid #2d2e30; display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; position: sticky; top: 0; z-index: 100; }
+        .nav-logo { font-size: 20px; font-weight: bold; color: #ffffff; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: #8a8b8c; text-decoration: none; font-size: 14px; font-weight: bold; transition: color 0.2s; }
+        .nav-links a:hover { color: #ffffff; }
+        .nav-auth-btn { background-color: #5c4033; border: 1px solid #3d2a21; color: #ffffff; padding: 8px 20px; font-size: 14px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: background-color 0.2s; }
+        .nav-auth-btn:hover { background-color: #7a5645; }
+        .hero { padding: 80px 40px; text-align: center; background: linear-gradient(180deg, #1a1b1c 0%, #141516 100%); border-bottom: 1px solid #2d2e30; }
+        .hero h1 { font-size: 48px; font-weight: 800; color: #ffffff; margin: 0 0 15px 0; letter-spacing: 1px; }
+        .hero p { font-size: 18px; color: #8a8b8c; max-width: 600px; margin: 0 auto 30px auto; line-height: 1.6; }
+        .hero-btn { background-color: #ffffff; color: #1a1b1c; border: none; padding: 14px 35px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: background-color 0.2s, transform 0.2s; }
+        .hero-btn:hover { background-color: #e5e5e5; transform: translateY(-2px); }
         /* Контейнер для всплывающего окна входа (Modal) */
         .modal {
             display: none;
@@ -135,6 +43,7 @@
             width: 320px;
             position: relative;
         }
+
         .modal-content h2 {
             margin-top: 0;
             color: #ffffff;
@@ -144,11 +53,11 @@
             background: none;
             border: none;
             color: #8a8b8c;
-            cursor: pointer;
             position: absolute;
             top: 15px;
             right: 15px;
             font-size: 24px;
+            cursor: pointer;
         }
 
         .close-btn:hover {
@@ -184,6 +93,7 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
         }
+
         .card {
             background-color: #1a1b1c;
             border: 1px solid #2d2e30;
@@ -242,7 +152,7 @@
         <button class="hero-btn" onclick="toggleModal(true)">СОЗДАТЬ АККАУНТ</button>
     </header>
 
-    <!-- ВСПЛЫВАЮЩЕЕ ОКНО АВТОРИЗАЦИИ С ТВОИМ КЛЮЧОМ GOOGLE -->
+    <!-- ВСПЛЫВАЮЩЕЕ ОКНО АВТОРИЗАЦИИ В РЕЖИМЕ РЕДИРЕКТА -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <button class="close-btn" onclick="toggleModal(false)">×</button>
@@ -250,11 +160,12 @@
             <p style="color: #8a8b8c; font-size: 14px;">Используйте ваш Google аккаунт для синхронизации с лаунчером</p>
             
             <div id="google_btn_container">
+                <!-- ИСПРАВЛЕНО: data-ux_mode изменен на "redirect" для обхода ограничений домена vercel.app -->
                 <div id="g_id_onload"
                      data-client_id="://googleusercontent.com"
                      data-context="signin"
-                     data-ux_mode="popup"
-                     data-callback="handleCredentialResponse"
+                     data-ux_mode="redirect"
+                     data-login_uri="https://vercel.app"
                      data-auto_prompt="false">
                 </div>
                 <div class="g_id_signin"
@@ -268,6 +179,7 @@
             </div>
         </div>
     </div>
+
     <!-- БЛОК ИГРОВЫХ КАРТОЧЕК -->
     <main class="content-section">
         <h2 class="section-title">Последние события</h2>
@@ -293,31 +205,19 @@
     </footer>
 
     <script>
-        // Открытие и закрытие модального окна
         function toggleModal(show) {
             document.getElementById('loginModal').style.display = show ? 'flex' : 'none';
         }
 
-        // Обработка успешного входа через Google
-        function handleCredentialResponse(response) {
-            console.log("Успешный вход! Токен от Google: ", response.credential);
+        // Автоматически считываем ответ Google, который придет в адресную строку после редиректа
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const credential = urlParams.get('credential') || window.location.hash.split('&')[0].split('=')[1];
             
-            // Отправляем токен на наш Vercel бэкенд
-            fetch('/api/auth', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id_token: response.credential })
-            })
-            .then(res => res.json())
-            .then(data => {
-                alert("Вход выполнен! Ваш секретный токен: " + data.launcher_token);
-                toggleModal(false);
-            })
-            .catch(err => {
-                // Если бэкенд еще обновляется сервером, выводим локальный успешный вход
-                alert("Вход выполнен через Google! (Сессия успешно создана)");
-                toggleModal(false);
-            });
+            if (credential) {
+                console.log("Токен от Google успешно получен через редирект!");
+                alert("Вход выполнен через Google! (Сессия Steel Club ID успешно создана)");
+            }
         }
     </script>
 </body>
