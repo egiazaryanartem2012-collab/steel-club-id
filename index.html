@@ -2,21 +2,231 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Steel Club ID - Авторизация</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steel Club ID — Официальный сайт</title>
     <style>
-        body { background-color: #1a1b1c; color: #f0eedb; font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background-color: #2d2e30; padding: 40px; border-radius: 8px; text-align: center; border: 1px solid #4a4b4c; }
-        h1 { margin-bottom: 10px; color: #ffffff; }
-        button { background-color: #ffffff; color: #1a1b1c; border: 1px solid #dcdcdc; padding: 12px 24px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; margin-top: 20px; }
-        button:hover { background-color: #e5e5e5; }
+        /* Общие брутальные стили в стиле дизельпанк / HOI4 */
+        body {
+            background-color: #141516;
+            color: #f0eedb;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* 1. Верхняя навигационная панель (Navbar) */
+        .navbar {
+            background-color: #1a1b1c;
+            border-bottom: 2px solid #2d2e30;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+			display: flex;
+			gap: 30px;
+        }
+
+        .nav-links a {
+            color: #8a8b8c;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        /* Кнопка "Войти" в правом верхнем углу */
+        .nav-auth-btn {
+            background-color: #5c4033; /* Твой коричневый игровой цвет */
+            border: 1px solid #3d2a21;
+            color: #ffffff;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .nav-auth-btn:hover {
+            background-color: #7a5645;
+        }
+
+        /* 2. Главный приветственный блок (Hero Section) */
+        .hero {
+            padding: 80px 40px;
+            text-align: center;
+            background: linear-gradient(180deg, #1a1b1c 0%, #141516 100%);
+            border-bottom: 1px solid #2d2e30;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0 0 15px 0;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #8a8b8c;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            line-height: 1.6;
+        }
+
+        /* Кнопка действия по центру */
+        .hero-btn {
+            background-color: #ffffff;
+            color: #1a1b1c;
+            border: none;
+            padding: 14px 35px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .hero-btn:hover {
+            background-color: #e5e5e5;
+            transform: translateY(-2px);
+        }
+
+        /* 3. Блок новостей и контента (News Section) */
+        .content-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex-grow: 1;
+        }
+
+        .section-title {
+            font-size: 22px;
+            color: #ffffff;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-left: 4px solid #5c4033;
+            padding-left: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: #1a1b1c;
+            border: 1px solid #2d2e30;
+            border-radius: 6px;
+            padding: 25px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .card:hover {
+			border-color: #4a4b4c;
+            transform: translateY(-3px);
+        }
+
+        .card h3 {
+            margin: 0 0 10px 0;
+            color: #ffffff;
+            font-size: 18px;
+        }
+
+        .card p {
+            color: #8a8b8c;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* 4. Подвал сайта (Footer) */
+        footer {
+            background-color: #101112;
+            border-top: 1px solid #2d2e30;
+            padding: 20px 40px;
+            text-align: center;
+            font-size: 12px;
+            color: #4a4b4c;
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>STEEL CLUB ID</h1>
-        <p>Добро пожаловать в единую систему аккаунтов</p>
-        <!-- Кнопка авторизации Google -->
-        <button onclick="alert('Система авторизации настраивается!')">Войти через Google</button>
-    </div>
+
+    <!-- ВЕРХНЯЯ ПАНЕЛЬ НАВИГАЦИИ -->
+    <nav class="navbar">
+        <div class="nav-logo">STEEL CLUB ID</div>
+        <div class="nav-links">
+            <a href="#">ГЛАВНАЯ</a>
+            <a href="#">ИГРЫ</a>
+            <a href="#">СООБЩЕСТВО</a>
+            <a href="#">ПОДДЕРЖКА</a>
+        </div>
+        <!-- Кнопка "Войти" в правом верхнем углу -->
+        <button class="nav-auth-btn" onclick="openLogin()">ВОЙТИ</button>
+    </nav>
+
+    <!-- ГЛАВНЫЙ ПРИВЕТСТВЕННЫЙ БЛОК -->
+    <header class="hero">
+        <h1>ДОБРО ПОЖАЛОВАТЬ</h1>
+        <p>Добро пожаловать в единую систему аккаунтов игрового вселенной. Синхронизируйте свои профили, общайтесь с друзьями и ведите учет своих побед.</p>
+        <button class="hero-btn" onclick="openLogin()">СОЗДАТЬ АККАУНТ</button>
+    </header>
+
+    <!-- БЛОК СТИЛЬНЫХ ИГРОВЫХ КАРТОЧЕК -->
+    <main class="content-section">
+        <h2 class="section-title">Последние события</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Запуск Heart of War</h3>
+                <p>Приготовьтесь к масштабным битвам. Закрытое бета-тестирование стартует в ближайшее время через официальный лаунчер Steel Club ID.</p>
+            </div>
+            <div class="card">
+                <h3>Обновление безопасности</h3>
+                <p>Мы успешно развернули новые алгоритмы шифрования данных. Ваши учетные записи и игровые токены находятся под надежной стальной защитой.</p>
+            </div>
+            <div class="card">
+                <h3>Единая экосистема</h3>
+                <p>Сайт и лаунчер теперь работают синхронно. Пройдите регистрацию один раз, чтобы мгновенно получить доступ ко всем игровым серверам.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- ПОДВАЛ САЙТА -->
+    <footer>
+        &copy; 2026 Steel Club ID. Все права защищены. Все торговые марки принадлежат их законным владельцам.
+    </footer>
+
+    <script>
+        // Функция-заглушка для кнопок входа
+        function openLogin() {
+            alert("Страница авторизации Steel Club ID находится в режиме интеграции!");
+        }
+    </script>
 </body>
 </html>
